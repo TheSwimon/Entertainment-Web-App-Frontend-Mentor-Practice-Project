@@ -6,6 +6,10 @@ export default {
       fontFamily: {
         outfit: ["Outfit", "Sans-serif"],
       },
+      screens: {
+        tablet: "700px",
+        preDesktop: "1150px",
+      },
     },
   },
   plugins: [],

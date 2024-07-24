@@ -5,7 +5,7 @@ export default function Movies() {
 
   return (
     <div className="pb-10">
-      <h2 className="text-white text-[20px] pb-4">Movies</h2>
+      <h2 className="text-white text-[20px] tablet:text-[32px] pb-4">Movies</h2>
       <Posts category={category} />
     </div>
   );

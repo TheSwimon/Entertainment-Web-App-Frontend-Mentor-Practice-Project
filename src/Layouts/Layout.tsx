@@ -11,10 +11,10 @@ export default function Layout() {
   const [posts, setPosts] = useState<Post[]>(dataJson);
 
   return (
-    <div>
+    <div className=" lg:mx-auto max-w-[1500px]">
       <Header />
       <PostsContext.Provider value={{ posts, setPosts }}>
-        <main className=" bg-[#10141E] px-4 font-outfit overflow-x-hidden">
+        <main className=" bg-[#10141E] px-4 font-outfit overflow-x-hidden lg:pl-32 lg:mt-10">
           <Input />
           <Outlet />
         </main>

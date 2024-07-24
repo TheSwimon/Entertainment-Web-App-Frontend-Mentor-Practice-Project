@@ -1,4 +1,5 @@
-import bookmarkIcon from "/assets/icon-bookmark-empty.svg";
+import bookmarkIconEmpty from "/assets/icon-bookmark-empty.svg";
+import bookmarkIconFull from "/assets/icon-bookmark-full.svg";
 import movieIcon from "/assets/icon-category-movie.svg";
 import tvIcon from "/assets/icon-category-tv.svg";
 import playIcon from "/assets/icon-play.svg";
@@ -17,18 +18,14 @@ export default function Posts({ category, page }: Category) {
     return post.category === category;
   });
 
-  console.log(filteredPosts);
-
   if (page === "bookmarks") {
     filteredPosts = filteredPosts.filter((post) => {
       return post.isBookmarked;
     });
   }
 
-  console.log(filteredPosts);
-
   return (
-    <div className=" grid grid-cols-2 justify-between gap-x-4 gap-y-5">
+    <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 justify-between gap-x-4 gap-y-5">
       {filteredPosts.map((post) => {
         return (
           <div
@@ -41,20 +38,23 @@ export default function Posts({ category, page }: Category) {
                 src={post.thumbnail.regular.small}
                 alt={`${post.title}'s cover image`}
               />
-              <div className="hidden group-hover:flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[80px] h-[30px] px-2 py-2 rounded-3xl text-[16px] text-white bg-[rgb(255,255,255,0.25)]  items-center gap-2">
+              <div className="hidden group-hover:flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[80px] h-[30px] lg:h-[48px] lg:w-[117px] px-2 py-2 rounded-3xl text-white bg-[rgb(255,255,255,0.25)]  items-center gap-2 lg:gap-4">
                 {" "}
-                <div className=" h-[20px] w-[20px] rounded-[50%]">
+                <div className=" h-[20px] w-[20px] lg:h-[30px] lg:w-[30px] rounded-[50%]">
                   <img src={playIcon} alt={`play icon`} />
                 </div>{" "}
-                <span>Play</span>{" "}
+                <span className="text-[16px] lg:text-[18px]]">Play</span>{" "}
               </div>
             </div>
             <span className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform">
-              <img src={bookmarkIcon} alt={`bookmark icon`} />
+              <img
+                src={post.isBookmarked ? bookmarkIconFull : bookmarkIconEmpty}
+                alt={`bookmark icon`}
+              />
             </span>
 
             <div>
-              <ul className="flex gap-2 text-[rgb(255,255,255,0.75)] text-[11px]">
+              <ul className="flex gap-2 text-[rgb(255,255,255,0.75)] text-[11px] tablet:text-[13px]">
                 <li>
                   <span>{post.year}</span>
                 </li>
@@ -75,7 +75,7 @@ export default function Posts({ category, page }: Category) {
                   <span>{post.rating}</span>
                 </li>
               </ul>
-              <h3 className=" text-[14px] font-medium text-white">
+              <h3 className=" text-[14px] tablet:text-[18px] font-medium text-white">
                 {post.title}
               </h3>
             </div>

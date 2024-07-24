@@ -20,8 +20,8 @@ export default function Recommended() {
 
   return (
     <div className="pb-10">
-      <h2 className="text-[20px] text-white mb-4">Recommended for you</h2>
-      <div className=" grid grid-cols-2 justify-between gap-x-4 gap-y-5">
+      <h2 className="text-[20px] tablet:text-[32px] text-white mb-4">Recommended for you</h2>
+      <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 justify-between gap-x-4 gap-y-5">
         {nonTrendingPosts.map((post) => {
           return (
             <div
@@ -34,9 +34,9 @@ export default function Recommended() {
                   src={post.thumbnail.regular.small}
                   alt={`${post.title}'s cover image`}
                 />
-                <div className="hidden group-hover:flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[80px] h-[30px] px-2 py-2 rounded-3xl text-[16px] text-white bg-[rgb(255,255,255,0.25)]  items-center gap-2">
+                <div className="hidden group-hover:flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[80px] h-[30px] lg:h-[48px] lg:w-[117px] px-2 py-2 rounded-3xl text-[16px] text-white bg-[rgb(255,255,255,0.25)]  items-center gap-2 lg:gap-4 ">
                   {" "}
-                  <div className=" h-[20px] w-[20px] rounded-[50%]">
+                  <div className=" h-[20px] w-[20px] lg:w-[30px] lg:h-[30px] rounded-[50%]">
                     <img src={playIcon} alt={`play icon`} />
                   </div>{" "}
                   <span>Play</span>{" "}
@@ -47,7 +47,7 @@ export default function Recommended() {
               </span>
 
               <div>
-                <ul className="flex gap-2 text-[rgb(255,255,255,0.75)] text-[11px]">
+                <ul className="flex gap-2 text-[rgb(255,255,255,0.75)] text-[11px] tablet:text-[13px]">
                   <li>
                     <span>{post.year}</span>
                   </li>
@@ -68,7 +68,7 @@ export default function Recommended() {
                     <span>{post.rating}</span>
                   </li>
                 </ul>
-                <h3 className=" text-[14px] font-medium text-white">
+                <h3 className=" text-[14px] tablet:text-[18px] font-medium text-white">
                   {post.title}
                 </h3>
               </div>
