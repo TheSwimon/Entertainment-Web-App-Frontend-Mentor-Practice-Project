@@ -1,9 +1,8 @@
-import React from "react";
 import searchIcon from "/assets/icon-search.svg";
 
 export default function Input() {
   return (
-    <div className="w-[80%] py-4 flex items-center gap-2 bg-[#10141E]">
+    <div className="w-[80%] py-5 mb-2 flex items-center gap-2 bg-[#10141E]">
       <span>
         <img src={searchIcon} alt="search icon" />
       </span>

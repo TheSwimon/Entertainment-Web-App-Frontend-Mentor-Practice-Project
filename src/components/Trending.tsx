@@ -1,17 +1,13 @@
 import { useContext } from "react";
-import { PostsContext } from "../pages/Home";
+import { PostsContext } from "../Layouts/Layout";
+import useHandleContext from "../hooks/useHandleContext";
 import bookmarkIcon from "/assets/icon-bookmark-empty.svg";
 import movieIcon from "/assets/icon-category-movie.svg";
 import tvIcon from "/assets/icon-category-tv.svg";
+import playIcon from "/assets/icon-play.svg";
 
 export default function Trending() {
-  const context = useContext(PostsContext);
-
-  if (!context) {
-    throw new Error("Trending component must be used within a PostsProvider");
-  }
-
-  const { posts, setPosts } = context;
+  const posts = useHandleContext(PostsContext);
 
   const trendingPosts = posts.filter((post) => {
     return post.isTrending;
@@ -25,14 +21,22 @@ export default function Trending() {
           return (
             <div
               key={post.title}
-              className="relative after:h-[100%] after:w-[100%] after:absolute after:bottom-0 after:bg-gradient-to-b after:from-[rgb(255,255,255,0)] after:to-[rgb(0,0,0,0.25)] after:to-90% "
+              className="relative group rounded-lg overflow-hidden after:h-[100%] after:w-[100%] after:absolute after:bottom-0 after:bg-gradient-to-b after:from-[rgb(255,255,255,0)] after:to-[rgb(0,0,0,0.25)] after:to-90% cursor-pointer"
             >
+              <div className="hidden group-hover:flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[80px] h-[30px] px-2 py-2 rounded-3xl text-[16px] text-white bg-[rgb(255,255,255,0.25)] items-center gap-2 z-[10]">
+                {" "}
+                <div className=" h-[20px] w-[20px] rounded-[50%]">
+                  <img src={playIcon} alt={`play icon`} />
+                </div>{" "}
+                <span>Play</span>{" "}
+              </div>
               <img
-                className="block w-[100%] h-auto rounded-lg brightness-90 "
+                className="block w-[100%] h-auto brightness-90 rounded-lg group-hover:brightness-50"
                 src={post.thumbnail.trending?.small}
                 alt={`${post.title}'s cover image`}
               />
-              <span className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center">
+
+              <span className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform">
                 <img src={bookmarkIcon} alt={`bookmark icon`} />
               </span>
               <div className="absolute bottom-3 left-4 z-10">
