@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PostsContext } from "../Layouts/Layout";
 import useHandleContext from "../hooks/useHandleContext";
 import bookmarkIcon from "/assets/icon-bookmark-empty.svg";
@@ -13,10 +13,43 @@ export default function Trending() {
     return post.isTrending;
   });
 
+  let isDown: boolean = false;
+  let startX: number;
+  let scrollLeft: number;
+
   return (
     <div className="mb-8">
-      <h2 className="text-[20px] tablet:text-[32px] font-normal text-white mb-4">Trending</h2>
-      <div className=" grid  grid-cols-[240px_240px_240px_240px_240px] tablet:grid-cols-[470px_470px_470px_470px_470px] gap-4">
+      <h2 className="text-[20px] tablet:text-[32px] font-normal text-white mb-4">
+        Trending
+      </h2>
+      <div
+        onPointerDown={(e) => {
+          isDown = true;
+          const target = e.currentTarget;
+
+          startX = e.pageX - target.offsetLeft;
+          scrollLeft = target.scrollLeft;
+        }}
+        onPointerLeave={() => {
+          isDown = false;
+        }}
+        onPointerUp={() => {
+          isDown = false;
+        }}
+        onPointerMove={(e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const target = e.currentTarget;
+
+          const x = e.pageX - target.offsetLeft;
+          const walk = (x - startX) * 2;
+          target.scrollLeft = scrollLeft - walk;
+        }}
+        // onClick={(e) => {
+        //   console.log(e.currentTarget);
+        // }}
+        className="grid grid-cols-[240px_240px_240px_240px_240px] tablet:grid-cols-[470px_470px_470px_470px_470px] gap-4 overflow-x-auto pointer-events-auto select-none"
+      >
         {trendingPosts.map((post) => {
           return (
             <div

@@ -20,8 +20,10 @@ export default function Recommended() {
 
   return (
     <div className="pb-10">
-      <h2 className="text-[20px] tablet:text-[32px] text-white mb-4">Recommended for you</h2>
-      <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 justify-between gap-x-4 gap-y-5">
+      <h2 className="text-[20px] tablet:text-[32px] text-white mb-4">
+        Recommended for you
+      </h2>
+      <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 2xl:grid-cols-5 justify-between gap-x-4 gap-y-5">
         {nonTrendingPosts.map((post) => {
           return (
             <div

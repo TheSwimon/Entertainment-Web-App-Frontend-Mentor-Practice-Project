@@ -25,7 +25,7 @@ export default function Posts({ category, page }: Category) {
   }
 
   return (
-    <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 justify-between gap-x-4 gap-y-5">
+    <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 2xl:grid-cols-5 justify-between gap-x-4 gap-y-5">
       {filteredPosts.map((post) => {
         return (
           <div
@@ -43,7 +43,9 @@ export default function Posts({ category, page }: Category) {
                 <div className=" h-[20px] w-[20px] lg:h-[30px] lg:w-[30px] rounded-[50%]">
                   <img src={playIcon} alt={`play icon`} />
                 </div>{" "}
-                <span className="text-[16px] lg:text-[18px]]">Play</span>{" "}
+                <span className="text-[16px] tablet:text-[18px] lg:text-[22px]">
+                  Play
+                </span>{" "}
               </div>
             </div>
             <span className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform">
