@@ -1,17 +1,29 @@
-import { useContext, useEffect } from "react";
 import { PostsContext } from "../Layouts/Layout";
 import useHandleContext from "../hooks/useHandleContext";
-import bookmarkIcon from "/assets/icon-bookmark-empty.svg";
 import movieIcon from "/assets/icon-category-movie.svg";
 import tvIcon from "/assets/icon-category-tv.svg";
 import playIcon from "/assets/icon-play.svg";
 
 export default function Trending() {
-  const posts = useHandleContext(PostsContext);
+  const { posts, setPosts } = useHandleContext(PostsContext);
 
   const trendingPosts = posts.filter((post) => {
     return post.isTrending;
   });
+
+  // function for handling adding and deleting items from the bookmark
+
+  function handleBookMark(postToUpdate: Post) {
+    const updatedPosts = posts.map((post) =>
+      post.title === postToUpdate.title
+        ? { ...post, isBookmarked: !post.isBookmarked }
+        : post
+    );
+
+    setPosts(updatedPosts);
+  }
+
+  // declaring variables to save information about pointer events for the horizontal scroll functionality
 
   let isDown: boolean = false;
   let startX: number;
@@ -45,10 +57,7 @@ export default function Trending() {
           const walk = (x - startX) * 2;
           target.scrollLeft = scrollLeft - walk;
         }}
-        // onClick={(e) => {
-        //   console.log(e.currentTarget);
-        // }}
-        className="grid grid-cols-[240px_240px_240px_240px_240px] tablet:grid-cols-[470px_470px_470px_470px_470px] gap-4 overflow-x-auto pointer-events-auto select-none"
+        className="grid grid-cols-[240px_240px_240px_240px_240px] tablet:grid-cols-[470px_470px_470px_470px_470px] gap-4 overflow-x-hidden pointer-events-auto select-none"
       >
         {trendingPosts.map((post) => {
           return (
@@ -69,8 +78,20 @@ export default function Trending() {
                 alt={`${post.title}'s cover image`}
               />
 
-              <span className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform">
-                <img src={bookmarkIcon} alt={`bookmark icon`} />
+              <span
+                onClick={() => {
+                  handleBookMark(post);
+                }}
+                className="absolute z-[10] top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
+              >
+                <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z"
+                    stroke="#FFF"
+                    strokeWidth="1.5"
+                    fill={post.isBookmarked ? "#fff" : "none"}
+                  />
+                </svg>
               </span>
               <div className="absolute bottom-3 left-4 z-10 tablet:bottom-5 tablet:left-6">
                 <ul className="flex gap-3 text-[rgb(255,255,255,0.75)] text-[12px] tablet:text-[15px]">

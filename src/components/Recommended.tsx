@@ -1,22 +1,29 @@
-import { useContext } from "react";
 import { PostsContext } from "../Layouts/Layout";
-import bookmarkIcon from "/assets/icon-bookmark-empty.svg";
+import useHandleContext from "../hooks/useHandleContext";
 import movieIcon from "/assets/icon-category-movie.svg";
 import tvIcon from "/assets/icon-category-tv.svg";
 import playIcon from "/assets/icon-play.svg";
 
 export default function Recommended() {
-  const context = useContext(PostsContext);
+  const { posts, setPosts } = useHandleContext(PostsContext);
 
-  if (!context) {
-    throw new Error("Trending component must be used within a PostsProvider");
-  }
-
-  const { posts, setPosts } = context;
+  // filtering posts array to gather the posts that are not trending
 
   const nonTrendingPosts = posts.filter((post) => {
     return !post.isTrending;
   });
+
+  // function for handling adding and deleting items from the bookmark
+
+  function handleBookMark(postToUpdate: Post) {
+    const updatedPosts = posts.map((post) =>
+      post.title === postToUpdate.title
+        ? { ...post, isBookmarked: !post.isBookmarked }
+        : post
+    );
+
+    setPosts(updatedPosts);
+  }
 
   return (
     <div className="pb-10">
@@ -44,8 +51,20 @@ export default function Recommended() {
                   <span>Play</span>{" "}
                 </div>
               </div>
-              <span className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform">
-                <img src={bookmarkIcon} alt={`bookmark icon`} />
+              <span
+                onClick={() => {
+                  handleBookMark(post);
+                }}
+                className="absolute top-2 right-2 h-7 w-7 bg-[rgb(16,20,30,0.50)] rounded-[50%] flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
+              >
+                <svg width="12" height="14" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z"
+                    stroke="#FFF"
+                    strokeWidth="1.5"
+                    fill={post.isBookmarked ? "#fff" : "none"}
+                  />
+                </svg>
               </span>
 
               <div>

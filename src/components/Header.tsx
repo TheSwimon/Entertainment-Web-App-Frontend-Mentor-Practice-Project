@@ -10,16 +10,32 @@ export default function Header() {
     setActivePage(page);
   }
 
+  function handleScrollWindow() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: `smooth`,
+    });
+  }
+
   return (
-    <div className="bg-[#161D2F] w-full px-4 py-4 flex items-center lg:fixed lg:w-auto lg:flex-col lg:h-[90vh] lg:top-[50%] lg:translate-y-[-50%] lg:rounded-lg lg:left-[31px]">
-      <a href="/" className="cursor-pointer lg:mb-12">
+    <div className="bg-[#161D2F] w-full px-4 py-4 flex items-center lg:fixed lg:w-auto lg:flex-col lg:h-[90vh] lg:top-[50%] lg:translate-y-[-50%] lg:rounded-lg lg:left-[31px] min-[1900px]:px-6">
+      <a
+        href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        target="_blank"
+        className="cursor-pointer lg:mb-12"
+      >
         <img src={logo} alt="website's logo" />
       </a>
 
       <div className="flex items-center lg:flex-col lg:gap-7 gap-5 mx-auto lg:mb-auto">
         <Link
           className="cursor-pointer"
-          onClick={() => handlePageChange("Home")}
+          onClick={() => {
+            handlePageChange("Home");
+
+            handleScrollWindow();
+          }}
           to={"/"}
         >
           <svg
@@ -36,7 +52,10 @@ export default function Header() {
 
         <Link
           className="cursor-pointer"
-          onClick={() => handlePageChange("Movie")}
+          onClick={() => {
+            handlePageChange("Movie");
+            handleScrollWindow();
+          }}
           to={"/Movie"}
         >
           <svg
@@ -53,7 +72,10 @@ export default function Header() {
 
         <Link
           className="cursor-pointer"
-          onClick={() => handlePageChange("TV-Series")}
+          onClick={() => {
+            handlePageChange("TV-Series");
+            handleScrollWindow();
+          }}
           to={"/TV-Series"}
         >
           <svg
@@ -70,7 +92,10 @@ export default function Header() {
 
         <Link
           className="cursor-pointer"
-          onClick={() => handlePageChange("Bookmarks")}
+          onClick={() => {
+            handlePageChange("Bookmarks");
+            handleScrollWindow();
+          }}
           to={"/Bookmarks"}
         >
           <svg

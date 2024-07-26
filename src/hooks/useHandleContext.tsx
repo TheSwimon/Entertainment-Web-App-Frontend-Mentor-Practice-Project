@@ -9,7 +9,5 @@ export default function useHandleContext(
     throw new Error("failed to get value of context!");
   }
 
-  const { posts } = context;
-
-  return posts;
+  return context;
 }
