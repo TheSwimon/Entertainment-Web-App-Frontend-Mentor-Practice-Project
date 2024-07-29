@@ -3,14 +3,15 @@ import tvIcon from "/assets/icon-category-tv.svg";
 import playIcon from "/assets/icon-play.svg";
 import useHandleContext from "../hooks/useHandleContext";
 import { PostsContext } from "../Layouts/Layout";
+import useHandleFilter from "../hooks/useHandleFilter";
 
 interface Category {
-  category: string;
+  category?: string;
   page?: string;
 }
 
 export default function Posts({ category, page }: Category) {
-  const { posts, setPosts } = useHandleContext(PostsContext);
+  const { posts, setPosts, searchString } = useHandleContext(PostsContext);
 
   // function for handling adding and deleting items from the bookmark
 
@@ -24,15 +25,7 @@ export default function Posts({ category, page }: Category) {
     setPosts(updatedPosts);
   }
 
-  let filteredPosts = posts.filter((post) => {
-    return post.category === category;
-  });
-
-  if (page === "bookmarks") {
-    filteredPosts = filteredPosts.filter((post) => {
-      return post.isBookmarked;
-    });
-  }
+  const filteredPosts = useHandleFilter({ category, page, searchString });
 
   return (
     <div className=" grid grid-cols-2 tablet:grid-cols-3 preDesktop:grid-cols-4 2xl:grid-cols-5 justify-between gap-x-4 gap-y-5">
@@ -42,12 +35,27 @@ export default function Posts({ category, page }: Category) {
             key={post.title}
             className="relative w-[100%] rounded-lg overflow-hidden"
           >
-            <div className="relative group cursor-pointer">
-              <img
-                className="rounded-lg group-hover:brightness-50 min-h-[110px] mb-2"
-                src={post.thumbnail.regular.small}
-                alt={`${post.title}'s cover image`}
-              />
+            <div className="relative group cursor-pointer mb-2">
+              <picture>
+                <source
+                  srcSet={`${post.thumbnail.regular.large}`}
+                  media="(min-width: 1024px)"
+                />
+                <source
+                  srcSet={`${post.thumbnail.regular.medium}`}
+                  media="(min-width: 768px)"
+                />
+                <source
+                  srcSet={`${post.thumbnail.regular.small}`}
+                  media="(max-width: 767px)"
+                />
+                <img
+                  className="rounded-lg group-hover:brightness-50 min-h-[110px] mb-2"
+                  src={`${post.thumbnail.regular.small}`}
+                  alt={`${post.title}'s cover image`}
+                />
+              </picture>
+
               <div className="hidden group-hover:flex absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[80px] h-[30px] lg:h-[48px] lg:w-[117px] px-2 py-2 rounded-3xl text-white bg-[rgb(255,255,255,0.25)]  items-center gap-2 lg:gap-4">
                 {" "}
                 <div className=" h-[20px] w-[20px] lg:h-[30px] lg:w-[30px] rounded-[50%]">

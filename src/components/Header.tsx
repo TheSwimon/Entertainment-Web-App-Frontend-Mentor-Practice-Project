@@ -1,22 +1,27 @@
 import logo from "/assets/logo.svg";
 import avatar from "/assets/image-avatar.png";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import useHandleScrollWindow from "../hooks/useHandleSCrollWindow";
 
 export default function Header() {
   const [activePage, setActivePage] = useState<string>("Home");
+
+  const { title } = useParams();
+
+  useEffect(() => {
+    if (title) {
+      setActivePage("");
+    }
+  }, [title]);
 
   function handlePageChange(page: string) {
     setActivePage(page);
   }
 
-  function handleScrollWindow() {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: `smooth`,
-    });
-  }
+  // scrolls the window to the top of the page when path changes or page reloads.
+
+  const handleScrollWindow = useHandleScrollWindow();
 
   return (
     <div className="bg-[#161D2F] w-full px-4 py-4 flex items-center lg:fixed lg:w-auto lg:flex-col lg:h-[90vh] lg:top-[50%] lg:translate-y-[-50%] lg:rounded-lg lg:left-[31px] min-[1900px]:px-6">
@@ -33,8 +38,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("Home");
-
-            handleScrollWindow();
+            handleScrollWindow;
           }}
           to={"/"}
         >
@@ -54,7 +58,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("Movie");
-            handleScrollWindow();
+            handleScrollWindow;
           }}
           to={"/Movie"}
         >
@@ -74,7 +78,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("TV-Series");
-            handleScrollWindow();
+            handleScrollWindow;
           }}
           to={"/TV-Series"}
         >
@@ -94,7 +98,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("Bookmarks");
-            handleScrollWindow();
+            handleScrollWindow;
           }}
           to={"/Bookmarks"}
         >

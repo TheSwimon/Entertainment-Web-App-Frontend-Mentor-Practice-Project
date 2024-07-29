@@ -37,4 +37,6 @@ type TrendingPost = {
 interface PostProps {
   posts: Post[];
   setPosts: Dispatch<SetStateAction<Post[]>>;
+  searchString: string;
+  setSearchString: Dispatch<setStateACtion<string>>;
 }

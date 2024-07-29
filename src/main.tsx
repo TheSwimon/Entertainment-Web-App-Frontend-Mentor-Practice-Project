@@ -7,6 +7,7 @@ import Home from "./pages/Home.tsx";
 import Movie from "./pages/Movie.tsx";
 import TvSeries from "./pages/TvSeries.tsx";
 import Bookmarks from "./pages/Bookmarks.tsx";
+import Search from "./pages/Search.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/Bookmarks",
         element: <Bookmarks />,
+      },
+      {
+        path: "/search/:title",
+        element: <Search />,
       },
     ],
   },

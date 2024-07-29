@@ -9,11 +9,14 @@ export const PostsContext = createContext<PostProps | undefined>(undefined);
 
 export default function Layout() {
   const [posts, setPosts] = useState<Post[]>(dataJson);
+  const [searchString, setSearchString] = useState<string>("");
 
   return (
     <div className={`lg:mx-auto max-w-[1840px]`}>
       <Header />
-      <PostsContext.Provider value={{ posts, setPosts }}>
+      <PostsContext.Provider
+        value={{ posts, setPosts, searchString, setSearchString }}
+      >
         <main className=" bg-[#10141E] px-4 font-outfit overflow-x-hidden lg:pl-32 lg:mt-10">
           <Input />
           <Outlet />
