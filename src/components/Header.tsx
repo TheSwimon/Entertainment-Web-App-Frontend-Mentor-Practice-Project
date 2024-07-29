@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useHandleScrollWindow from "../hooks/useHandleSCrollWindow";
 
+const handleScrollWindow = useHandleScrollWindow();
+
 export default function Header() {
   const [activePage, setActivePage] = useState<string>("Home");
 
@@ -20,8 +22,6 @@ export default function Header() {
   }
 
   // scrolls the window to the top of the page when path changes or page reloads.
-
-  const handleScrollWindow = useHandleScrollWindow();
 
   return (
     <div className="bg-[#161D2F] w-full px-4 py-4 flex items-center lg:fixed lg:w-auto lg:flex-col lg:h-[90vh] lg:top-[50%] lg:translate-y-[-50%] lg:rounded-lg lg:left-[31px] min-[1900px]:px-6">
@@ -58,7 +58,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("Movie");
-            handleScrollWindow;
+            // handleScrollWindow;
           }}
           to={"/Movie"}
         >
@@ -78,7 +78,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("TV-Series");
-            handleScrollWindow;
+            // handleScrollWindow;
           }}
           to={"/TV-Series"}
         >
@@ -98,7 +98,7 @@ export default function Header() {
           className="cursor-pointer"
           onClick={() => {
             handlePageChange("Bookmarks");
-            handleScrollWindow;
+            // handleScrollWindow;
           }}
           to={"/Bookmarks"}
         >
